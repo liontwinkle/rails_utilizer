@@ -1,0 +1,12 @@
+#content
+  %h1 Hello
+  %p
+    First class:
+    %span= @first_class
+  %p
+    Second class:
+    %span= @second_class
+  - if @third_class
+    %p
+      PlackarT:
+      %span= @third_class
