@@ -3,7 +3,9 @@ class TrainSearch < ApplicationRecord
 
   validates :uz_train_number, :user, presence: true
 
-  before_save :init_departure_from_url, on: :crete, unless: :uz_departure
+  before_save :init_departure_from_url, on: :create, unless: :uz_departure
+
+  accepts_nested_attributes_for :user
 
   private
 

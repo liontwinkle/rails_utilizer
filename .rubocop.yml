@@ -6,6 +6,7 @@ AllCops:
     - 'vendor/**/*'
     - 'node_modules/**/*'
     - 'db/schema.rb'
+    - 'views/**/*.haml'
   Include:
     - '**/*.rake'
     - '**/*.gemspec'
@@ -36,7 +37,7 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 
 Metrics/LineLength:
-  Max: 150
+  Max: 100
 
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
