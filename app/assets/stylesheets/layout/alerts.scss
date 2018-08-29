@@ -1,0 +1,17 @@
+.field_with_errors {
+  display: inline;
+
+  input {
+    border-color: red;
+  }
+}
+
+.form-errors {
+  color: red;
+  list-style: none;
+}
+
+#notice {
+  color: green;
+  margin-bottom: 15px;
+}

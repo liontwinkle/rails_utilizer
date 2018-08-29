@@ -1,11 +1,8 @@
 class TrainSearch < ApplicationRecord
-  belongs_to :user
-
-  validates :uz_train_number, :user, presence: true
+  validates :uz_train_number, presence: true
+  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   before_save :init_departure_from_url, on: :create, unless: :uz_departure
-
-  accepts_nested_attributes_for :user
 
   private
 

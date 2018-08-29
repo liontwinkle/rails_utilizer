@@ -10,6 +10,13 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div id="container">
+      <% flash.each do |k, v| %>
+        <div id="<%= k %>"><%= v %></div>
+      <% end %>
+      <div id="inner-content">
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>

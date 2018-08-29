@@ -1,21 +1,27 @@
 class TrainSearchesController < ApplicationController
   def new
-    @train_search = TrainSearch.new(user: User.new)
-    @train_search.build_user
+    @train_search = TrainSearch.new
   end
 
   def create
-    # binding.pry
-    train_search = TrainSearch.new(create_params)
-    # TODO:
-      # 1-save train search
-      # 2-render new with notice
-      # 3-save or find user
+    @train_search = TrainSearch.new(create_params)
+    if @train_search.save
+      flash[:notice] = 'Спасибо за запрос. Вы получите уведомления о новых билетах'
+      redirect_to :root
+    else
+      render :new
+    end
   end
+
+  # TODO:
+  # - add delayed jobs
+  # - add whenever
+  # - every X minutes check searches that are not expired
+
 
   private
 
   def create_params
-    params.require(:train_search).permit(:uz_train_number, :uz_search_url, user_attributes: [:email])
+    params.require(:train_search).permit(:uz_train_number, :uz_search_url, :email)
   end
 end

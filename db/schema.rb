@@ -22,17 +22,10 @@ ActiveRecord::Schema.define(version: 2018_08_19_171503) do
     t.integer "uz_train_number", null: false
     t.string "uz_search_url"
     t.date "uz_departure", null: false
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_train_searches_on_user_id"
-    t.index ["uz_train_number"], name: "index_train_searches_on_uz_train_number"
-  end
-
-  create_table "users", force: :cascade do |t|
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["uz_train_number"], name: "index_train_searches_on_uz_train_number"
   end
 
 end

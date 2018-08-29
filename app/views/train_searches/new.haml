@@ -1,12 +1,16 @@
 = form_for @train_search do |fts|
+  - if @train_search.errors.any?
+    %ul.form-errors
+      - @train_search.errors.full_messages.each do |msg|
+        %li= msg
+
   Номер поезда:
   = fts.number_field :uz_train_number, placeholder: 425
   %br
   Ссылка на поиск:
   = fts.text_field :uz_search_url, placeholder: 'https://booking.uz.gov.ua/?from=2204001&to=2200001&date=2018-09-13&time=00%3A00&url=train-list'
   %br
-  = fts.fields_for :user do |fu|
-    Ваш имэйл адрес:
-    = fu.text_field :email, placeholder: 'test@example.com'
+  Ваш имэйл адрес:
+  = fts.text_field :email, placeholder: 'test@example.com'
   %br
   = fts.submit

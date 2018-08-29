@@ -7,12 +7,10 @@ class CreateTrainSearches < ActiveRecord::Migration[5.2]
 
       t.integer :uz_train_number, null: false
       t.index :uz_train_number
-
       t.string :uz_search_url
-
       t.date :uz_departure, null: false # either given by user or got from search_url
 
-      t.references :user, index: true
+      t.string :email
 
       t.timestamps
     end
