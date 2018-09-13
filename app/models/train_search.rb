@@ -2,7 +2,10 @@ class TrainSearch < ApplicationRecord
   validates :uz_train_number, presence: true
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
+  scope :unfulfilled, -> { where('uz_departure > ?', Time.current.end_of_day) }
+
   before_save :init_departure_from_url, on: :create, unless: :uz_departure
+  after_save :notify_user, if: :new_seats_available?
 
   private
 
@@ -12,5 +15,21 @@ class TrainSearch < ApplicationRecord
     date_format_in_url = /date=(\d+-\d+-\d+)/
     departure_as_string = uz_search_url.match(date_format_in_url)&.captures&.first
     self.uz_departure = departure_as_string.in_time_zone
+  end
+
+  def new_seats_available?
+    change_to_seat_number('first')    ||
+      change_to_seat_number('second') ||
+      change_to_seat_number('third')
+  end
+
+  def change_to_seat_number(seats_type)
+    send("saved_change_to_#{seats_type}_seats_number?") &&
+      send("#{seats_type}_seats_number_before_last_save").present?
+  end
+
+  def notify_user
+    Rails.logger.fatal "NEW PLACES FOUND FOR #{id}"
+    # TODO: Send notification email with new number of seats
   end
 end

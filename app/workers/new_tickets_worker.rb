@@ -1,8 +1,6 @@
 class NewTicketsWorker
-  # include Singleton
-
   def perform
-    # Seach tickets
+    CheckTicketsLogic.instance.search
   end
 
   def enqueue_self

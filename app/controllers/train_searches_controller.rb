@@ -13,9 +13,6 @@ class TrainSearchesController < ApplicationController
     end
   end
 
-  # TODO:
-  # - Run Train searches from the delayed job
-
   private
 
   def create_params
