@@ -14,10 +14,7 @@ class TrainSearchesController < ApplicationController
   end
 
   # TODO:
-  # - add delayed jobs
-  # - add whenever
-  # - every X minutes check searches that are not expired
-
+  # - Run Train searches from the delayed job
 
   private
 
