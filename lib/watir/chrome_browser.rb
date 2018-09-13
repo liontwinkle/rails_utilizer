@@ -1,6 +1,6 @@
 module Watir
-  module ChromeBrowser
-    def in_browser
+  class ChromeBrowser
+    def self.in_browser
       browser = Watir::Browser.new :chrome, headless: true
       begin
         yield browser

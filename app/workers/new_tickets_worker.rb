@@ -1,6 +1,6 @@
 class NewTicketsWorker
   def perform
-    CheckTicketsLogic.instance.search
+    TrainSearches::CheckTicketsLogic.instance.search
   end
 
   def enqueue_self
