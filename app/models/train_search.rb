@@ -24,12 +24,12 @@ class TrainSearch < ApplicationRecord
   end
 
   def change_to_seat_number(seats_type)
-    send("saved_change_to_#{seats_type}_seats_number?") &&
-      send("#{seats_type}_seats_number_before_last_save").present?
+    old_new_numbers = send("saved_change_to_#{seats_type}_seats_number")
+    old_new_numbers&.first && old_new_numbers.first < old_new_numbers.last
   end
 
   def notify_user
     Rails.logger.fatal "NEW PLACES FOUND FOR #{id}"
-    # TODO: Send notification email with new number of seats
+    # TODO: Send notification email/or message with new number of seats
   end
 end

@@ -12,8 +12,7 @@ module TrainSearches
 
     def fulfill_train_searches(browser)
       TrainSearch.unfulfilled.find_each do |train_search|
-        # is not loaded because of namespace. uninitialized constant TrainSearches::CheckTicketsLogic::FulfillTrainSearch≥
-        FulfillTrainSearch.new(train_search, browser).fulfill
+        FulfillTrainSearchLogic.new(train_search, browser).fulfill
       end
     end
   end
