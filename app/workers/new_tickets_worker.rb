@@ -26,5 +26,7 @@ class NewTicketsWorker
 
   def failure(_job)
     # Send me email
+    Rails.logger.error("Delayed job has failed. Error: #{last_error}")
+    enqueue_self
   end
 end
