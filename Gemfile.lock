@@ -1,11 +1,3 @@
-GIT
-  remote: https://github.com/eddiezane/sendgrid-actionmailer.git
-  revision: 0b39df093f63975555e1d2863bbc569ee8c3c055
-  specs:
-    sendgrid-actionmailer (2.0.0)
-      mail (~> 2.5)
-      sendgrid-ruby (~> 5.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -314,7 +306,6 @@ DEPENDENCIES
   rubocop
   sass-rails (~> 5.0)
   selenium-webdriver
-  sendgrid-actionmailer!
   sendgrid-ruby
   spring
   spring-watcher-listen (~> 2.0.0)
