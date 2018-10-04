@@ -29,7 +29,6 @@ class TrainSearch < ApplicationRecord
   end
 
   def notify_user
-    # Rails.logger.fatal "NEW PLACES FOUND FOR #{id}"
     TicketsMailer.with(train_search: self).new_tickets_email.deliver_later
   end
 end

@@ -24,9 +24,13 @@ class NewTicketsWorker
     # Send me email
   end
 
+  def before(job)
+    @job = job
+  end
+
   def failure(_job)
-    # Send me email
-    Rails.logger.error("Delayed job has failed. Error: #{last_error}")
+    # TODO: Send me email
+    Rails.logger.error("Delayed job has failed. Error: #{@job.last_error}")
     enqueue_self
   end
 end
