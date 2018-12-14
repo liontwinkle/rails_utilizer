@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_06_180129) do
+ActiveRecord::Schema.define(version: 2018_12_14_150751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,9 @@ ActiveRecord::Schema.define(version: 2018_09_06_180129) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "from_station", null: false
+    t.string "to_station", null: false
+    t.string "start_search_from"
     t.index ["uz_train_number"], name: "index_train_searches_on_uz_train_number"
   end
 
