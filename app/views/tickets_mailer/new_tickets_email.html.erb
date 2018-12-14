@@ -1,0 +1,17 @@
+<h1>Новые железнодорожные билеты</h1>
+<p>
+  В продаже появились новые ж/д билеты по вашему запросу.<br>
+  Количество билетов:<br>
+  <ul>
+    <li>Первый класс: <%= @train_search.first_seats_number %></li>
+    <% if @train_search.second_seats_number %>
+      <li>Второй класс: <%= @train_search.second_seats_number %></li>
+    <% end %>
+    <% if @train_search.third_seats_number %>
+      <li>Третий класс: <%= @train_search.third_seats_number %></li>
+    <% end %>
+  </ul>
+</p>
+<p>
+  Спасибо, что ищите билеты с нами
+</p>

@@ -32,6 +32,8 @@ module TrainSearches
     end
 
     def find_available_seats_on_train(train_watir_row)
+      # TODO: Should check class number by latter. E.g. if first class is out of stock,
+      # it'd populate first class with second class number
       seats_by_class = train_watir_row.spans(css: '.place .item .place-count')
 
       seat_attribute_keys = %i[first_seats_number second_seats_number third_seats_number]
