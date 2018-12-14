@@ -104,6 +104,9 @@ GEM
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     haml_parser (0.4.1)
+    httparty (0.16.3)
+      mime-types (~> 3.0)
+      multi_xml (>= 0.5.2)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
     io-like (0.3.0)
@@ -123,12 +126,16 @@ GEM
     marcel (0.3.2)
       mimemagic (~> 0.3.2)
     method_source (0.9.0)
+    mime-types (3.2.2)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2018.0812)
     mimemagic (0.3.2)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     msgpack (1.2.4)
     multi_json (1.13.1)
+    multi_xml (0.6.0)
     nio4r (2.3.1)
     nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
@@ -277,6 +284,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   delayed_job_active_record
   faml
+  httparty
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   pg
@@ -301,4 +309,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.3
+   1.16.6
