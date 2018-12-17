@@ -1,45 +1,49 @@
 module TrainSearches
   class FulfillTrainSearchLogic
-    def initialize(train_search, browser)
+    def initialize(train_search)
       @train_search = train_search
-      @browser = browser
+      @from_station = train_search.from_station
+      @to_station = train_search.to_station
+      @starting_from = train_search.start_search_from
+      @date = train_search.uz_departure
+      @train_number = train_search.uz_train_number
     end
 
     def fulfill
-      train_watir_row = find_train_watir_row
-      available_seats = find_available_seats_on_train(train_watir_row)
-      @train_search.update!(available_seats)
+      save_seats
+      # TODO: save seats if no train number provided
     end
 
     private
 
-    def find_train_watir_row
-      @browser.goto(@train_search.uz_search_url)
-
-      # find table row(train row) that contains train info
-      # TODO: refactor to search for ancestors#<tr> in a better way
-      @browser.div(css: '.num div', visible_text: train_number_regexp)
-              .wait_until(&:present?).parent
-              .wait_until(&:present?).parent
-              .wait_until(&:present?)
+    def save_seats
+      seats = train_by_number&.fetch('types')
+      @train_search.first_seats_number = seats_number_by_class(seats, 'L')
+      @train_search.second_seats_number = seats_number_by_class(seats, 'C')
+      @train_search.third_seats_number = seats_number_by_class(seats, 'B')
+      @train_search.save!
     end
 
-    def train_number_regexp
-      # any number of any character
-      # then train number
-      # followed by any number of any characters
-      Regexp.new("\\.*#{@train_search.uz_train_number}\\.*")
+    def train_by_number
+      available_trains.find { |train| train.fetch('num') =~ /#{@train_number}/ }
     end
 
-    def find_available_seats_on_train(train_watir_row)
-      # TODO: Should check class number by latter. E.g. if first class is out of stock,
-      # it'd populate first class with second class number
-      seats_by_class = train_watir_row.spans(css: '.place .item .place-count')
+    def available_trains
+      uz_search_options = {
+        body: {
+          date: @date.to_s,
+          from: @from_station,
+          to: @to_station,
+          time: @starting_from
+        }
+      }
 
-      seat_attribute_keys = %i[first_seats_number second_seats_number third_seats_number]
-      seats_by_class.each_with_index.each_with_object({}) do |(span, i), memo|
-        memo[seat_attribute_keys[i]] = span.text
-      end
+      HTTParty.post('https://booking.uz.gov.ua/en/train_search/', uz_search_options)
+        &.fetch('data')&.fetch('list')
+    end
+
+    def seats_number_by_class(seats, class_letter)
+      seats.find { |it| it.fetch('letter') == class_letter }.fetch('places', 0)
     end
   end
 end

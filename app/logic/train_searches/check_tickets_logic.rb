@@ -3,21 +3,13 @@ module TrainSearches
     include Singleton
 
     def search
+      threads = []
       TrainSearch.unfulfilled.find_each do |train_search|
-        FulfillTrainSearchLogic.new(train_search, browser).fulfill
+        threads << Thread.new do
+          FulfillTrainSearchLogic.new(train_search).fulfill
+        end
       end
-
-      # options = {
-      #   body: {
-      #     date: '2019-01-18',
-      #     from: 22_00_001,
-      #     to: 2_210_700,
-      #     time: '00:00'
-      #   }
-      # }
-      #
-      # response = HTTParty.post('https://booking.uz.gov.ua/en/train_search/', options)
-      # response
+      threads.each(&:join)
     end
   end
 end

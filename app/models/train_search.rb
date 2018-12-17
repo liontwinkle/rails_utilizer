@@ -15,7 +15,7 @@ class TrainSearch < ApplicationRecord
   # start_search_from= 00:00
   def init_from_url
     attributes_from_url = Uz::UrlParserLogic.new(uz_search_url).attributes
-    self.assign_attributes = attributes_from_url
+    assign_attributes(attributes_from_url)
   end
 
   def new_seats_available?
