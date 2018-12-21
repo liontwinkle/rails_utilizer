@@ -18,9 +18,9 @@ module TrainSearches
 
     def save_seats
       seats = train_by_number&.fetch('types')
-      @train_search.first_seats_number = seats_number_by_class(seats, 'L')
-      @train_search.second_seats_number = seats_number_by_class(seats, 'C')
-      @train_search.third_seats_number = seats_number_by_class(seats, 'B')
+      @train_search.first_seats_number = seats_number_by_class(seats, %w[L C1])
+      @train_search.second_seats_number = seats_number_by_class(seats, %w[C C2])
+      @train_search.third_seats_number = seats_number_by_class(seats, ['B'])
       @train_search.save!
     end
 
@@ -42,8 +42,8 @@ module TrainSearches
         &.fetch('data')&.fetch('list')
     end
 
-    def seats_number_by_class(seats, class_letter)
-      seats.find { |it| it.fetch('letter') == class_letter }.fetch('places', 0)
+    def seats_number_by_class(seats, class_letters)
+      seats.find { |it| class_letters.include?(it.fetch('letter')) }.fetch('places', 0)
     end
   end
 end
